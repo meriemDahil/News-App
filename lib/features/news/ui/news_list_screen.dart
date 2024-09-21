@@ -4,6 +4,7 @@ import 'package:newsapp/core/text.dart';
 import 'package:newsapp/features/news/data/news_response.dart';
 import 'package:newsapp/features/news/repo/news_repo.dart';
 import 'package:newsapp/features/news/ui/carousel_slider.dart';
+import 'package:newsapp/features/news/ui/tabbar.dart';
 
 class NewsListScreen extends StatefulWidget {
   const NewsListScreen({super.key});
@@ -58,11 +59,11 @@ class _NewsListScreenState extends State<NewsListScreen> {
                   } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
                     return Center(child: Text('No articles found'));
                   }
-
                final articles = snapshot.data!;
                return CarouselSlide(articles:articles);
                 }
                 ),
+                Tabbar(),
             ],
           ),
         ),
