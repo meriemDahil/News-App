@@ -5,8 +5,7 @@ import 'package:newsapp/features/news/data/news_response.dart';
 class NewsRepository{
 
   final Dio dio = Dio();
-  final String apiKey = 'Apikey';
-  final String baseUrl = 'baseUrl';
+
 
    Future<List<Article>> fetchArticles(String query) async {
     try {
@@ -31,7 +30,6 @@ class NewsRepository{
       throw Exception('Error fetching articles: $e');
     }
   }
-
   Future<bool> isImageUrlAvailable(String url) async {
     try {
       var response = await Dio().head(url);

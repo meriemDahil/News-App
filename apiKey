@@ -1,2 +1,0 @@
-final String apiKey = '3d7206a49a4f49e8b0c2f964ee326206';
-final String baseUrl = 'https://newsapi.org/v2';
