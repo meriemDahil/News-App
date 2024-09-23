@@ -1,7 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:newsapp/core/text.dart';
 import 'package:newsapp/features/news/data/news_response.dart';
 import 'package:newsapp/features/news/repo/news_repo.dart';
 

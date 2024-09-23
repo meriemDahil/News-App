@@ -42,10 +42,11 @@ class _TabbarState extends State<Tabbar> with SingleTickerProviderStateMixin {
             unselectedLabelColor: Colors.grey,
             indicatorColor: Colors.black,
           ),
+          const SizedBox(height: 10,),
           Expanded(
             child: TabBarView(
               controller: _tabController,
-              children:  [
+              children: const [
                TabView(query: 'Algeria',),
                TabView(query: 'Health',),
                TabView(query: 'Sports',),

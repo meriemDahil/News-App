@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:newsapp/core/search.dart';
 import 'package:newsapp/core/text.dart';
 import 'package:newsapp/features/news/data/news_response.dart';
+import 'package:newsapp/features/news/logic/cubit/news_cubit.dart';
 import 'package:newsapp/features/news/repo/news_repo.dart';
 import 'package:newsapp/features/news/ui/carousel_slider.dart';
 import 'package:newsapp/features/news/ui/tabbar.dart';
@@ -49,21 +51,24 @@ class _NewsListScreenState extends State<NewsListScreen> {
               ),
               const SizedBox(height: 20,),
               BigText(text:'Trending'),
-               FutureBuilder<List<Article>>(
-                future: articlesFuture,
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Center(child: CircularProgressIndicator());
-                  } else if (snapshot.hasError) {
-                    return Center(child: Text('Error: ${snapshot.error}'));
-                  } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                    return Center(child: Text('No articles found'));
+              BlocBuilder<NewsCubit, NewsState>(
+                builder: (context, state) {
+                  if (state is Loading) {
+                    return const Center(child: CircularProgressIndicator());
+                  } else if (state is Error) {
+                    return Center(child: Text(state.error));
+                  }else if (state is Success) {
+                    final articles = state.articles;
+                    if (articles.isEmpty) {
+                      return const Center(child: Text('No articles found'));
+                    } else {
+                      return CarouselSlide(articles: articles);
+                    }
                   }
-               final articles = snapshot.data!;
-               return CarouselSlide(articles:articles);
-                }
-                ),
-                Tabbar(),
+                  return const SizedBox.shrink(); 
+                },
+              ),
+              const Tabbar(),
             ],
           ),
         ),

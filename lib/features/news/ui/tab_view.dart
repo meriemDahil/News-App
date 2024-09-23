@@ -22,8 +22,8 @@ class _TabViewState extends State<TabView> {
   @override
   void initState() {
     super.initState();
-    _newsCubit = BlocProvider.of<NewsCubit>(context);  // Fetch the cubit from the context
-    _newsCubit.fechNews(widget.query);  // Trigger the API call
+    _newsCubit = BlocProvider.of<NewsCubit>(context); 
+    _newsCubit.fechNews(widget.query); 
   }
 
   @override
@@ -39,10 +39,12 @@ class _TabViewState extends State<TabView> {
           if (articles.isEmpty) {
             return const Center(child: Text('No articles found'));
           }
-          return ListView.builder(
-            itemCount: articles.length,
-            itemBuilder: (context, index) {
-              final article = articles[index];
+
+          return CustomScrollView(
+          slivers: [
+            SliverList(
+              delegate: SliverChildBuilderDelegate((context, index) {
+                final article = articles[index];
               return ListTile(
                 leading: SizedBox(
                   width: 100,
@@ -62,8 +64,35 @@ class _TabViewState extends State<TabView> {
                   maxLines: 3,
                 ),
               );
-            },
+          },)
+          )
+          ]
           );
+          // return ListView.builder(
+          //   itemCount: articles.length,
+          //   itemBuilder: (context, index) {
+          //     final article = articles[index];
+          //     return ListTile(
+          //       leading: SizedBox(
+          //         width: 100,
+          //         height: 100,
+          //         child:Image(image:NetworkImage(
+          //            article.urlToImage ?? ''),
+          //           //placeholder: (context, url) => Image.asset('assets/news.png', fit: BoxFit.cover),
+          //           errorBuilder: (context, url, error) => Image.asset('assets/news.png', fit: BoxFit.cover),
+          //           fit: BoxFit.cover,
+          //         ),
+          //       ),
+          //       title: Text(
+          //         article.title,
+          //         style: const TextStyle(
+          //           overflow: TextOverflow.clip,
+          //         ),
+          //         maxLines: 3,
+          //       ),
+          //     );
+          //   },
+          // );
         } else {
           return const Center(child: Text('Unexpected State'));
         }

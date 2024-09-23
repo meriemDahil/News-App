@@ -20,3 +20,47 @@ class NewsCubit extends Cubit<NewsState> {
     }
   }
 } 
+
+// class NewsCubit extends Cubit<NewsState> {
+//   final NewsRepository _newsRepo;
+//   int _currentPage = 1;
+//   bool _hasReachedEnd = false;
+//   List<Article> _articles = [];
+
+//   NewsCubit(this._newsRepo) : super(NewsState.initial());
+
+//   Future<void> fetchNews(String query, {bool isRefresh = false}) async {
+//     if (isRefresh) {
+//       _currentPage = 1; // Reset the page count if refreshing
+//       _articles.clear();
+//       _hasReachedEnd = false;
+//     }
+
+//     if (_hasReachedEnd) return; 
+
+//     emit(NewsState.loading());
+
+//     try {
+//       final articles = await _newsRepo.fetchArticles(query, );
+      
+//       if (articles.isEmpty) {
+//         _hasReachedEnd = true; 
+//       } else {
+//         _articles.addAll(articles);
+//         print(articles);
+//         print(_currentPage);
+//         _currentPage++; // Increment the page for the next fetch
+//       }
+
+//       emit(NewsState.success(_articles));
+//     } catch (e) {
+//       emit(NewsState.error('Failed to fetch articles: $e'));
+//     }
+//   }
+
+//   void loadMoreNews(String query) {
+//     if (!_hasReachedEnd) {
+//       fetchNews(query);
+//     }
+//   }
+// }
